@@ -1,6 +1,6 @@
-/*! PhotoSwipe - v4.1.2 - 2017-04-05
+/*! PhotoSwipe - v4.1.2 - 2018-07-23
 * http://photoswipe.com
-* Copyright (c) 2017 Dmitry Semenov; */
+* Copyright (c) 2018 Dmitry Semenov; */
 (function (root, factory) { 
 	if (typeof define === 'function' && define.amd) {
 		define(factory);
@@ -3448,18 +3448,17 @@ _registerModule('DesktopZoom', {
  * history.js:
  *
  * - Back button to close gallery.
- * 
- * - Unique URL for each slide: example.com/&pid=1&gid=3
- *   (where PID is picture index, and GID and gallery index)
- *   
+ *
+ * - Unique URL for each slide: example.com/#pid
+ *   (where PID is picture index)
+ *
  * - Switch URL when slides change.
- * 
+ *
  */
 
 
 var _historyDefaultOptions = {
 	history: true,
-	galleryUID: 1
 };
 
 var _historyUpdateTimeout,
@@ -3491,26 +3490,15 @@ var _historyUpdateTimeout,
 	},
 
 	// pid - Picture index
-	// gid - Gallery index
 	_parseItemIndexFromURL = function() {
-		var hash = _getHash(),
-			params = {};
+		var hash = _getHash();
+		var params = {};
 
-		if(hash.length < 5) { // pid=1
+		if(hash.length < 1) {
 			return params;
 		}
 
-		var i, vars = hash.split('&');
-		for (i = 0; i < vars.length; i++) {
-			if(!vars[i]) {
-				continue;
-			}
-			var pair = vars[i].split('=');	
-			if(pair.length < 2) {
-				continue;
-			}
-			params[pair[0]] = pair[1];
-		}
+		params['pid'] = hash;
 		if(_options.galleryPIDs) {
 			// detect custom pid in hash and search for it among the items collection
 			var searchfor = params.pid;
@@ -3556,7 +3544,7 @@ var _historyUpdateTimeout,
 			// carry forward any custom pid assigned to the item
 			pid = item.pid;
 		}
-		var newHash = _initialHash + '&'  +  'gid=' + _options.galleryUID + '&' + 'pid=' + pid;
+		var newHash = _initialHash + pid;
 
 		if(!_historyChanged) {
 			if(_windowLoc.hash.indexOf(newHash) === -1) {
@@ -3615,12 +3603,6 @@ _registerModule('History', {
 			_supportsPushState = ('pushState' in history);
 
 
-			if(_initialHash.indexOf('gid=') > -1) {
-				_initialHash = _initialHash.split('&gid=')[0];
-				_initialHash = _initialHash.split('?gid=')[0];
-			}
-			
-
 			_listen('afterChange', self.updateURL);
 			_listen('unbindEvents', function() {
 				framework.unbind(window, 'hashchange', self.onHashChange);
@@ -3670,17 +3652,9 @@ _registerModule('History', {
 				_currentItemIndex = _parseItemIndexFromURL().pid;
 			});
 
-			
 
-			
-			var index = _initialHash.indexOf('pid=');
-			if(index > -1) {
-				_initialHash = _initialHash.substring(0, index);
-				if(_initialHash.slice(-1) === '&') {
-					_initialHash = _initialHash.slice(0, -1);
-				}
-			}
-			
+			_initialHash = ''
+
 
 			setTimeout(function() {
 				if(_isOpen) { // hasn't destroyed yet

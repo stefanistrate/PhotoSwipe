@@ -222,11 +222,6 @@ Keyboard left or right arrow key navigation. Option can be changed dynamically (
 If set to `false` disables history module (back button to close gallery, unique URL for each slide). You can also just exclude `history.js` module from your build.
 
 
-### `galleryUID` <code class="default">integer</code> <code class="default">1</code>
-
-Gallery unique ID. Used by History module when forming URL. For example, second picture of gallery with UID 1 will have URL: `http://example.com/#&gid=1&pid=2`.
-
-
 ### <a name="galleryPIDs"></a> `galleryPIDs` <code class="default">boolean</code> <code class="default">false</code>
 
 Enables custom IDs for each slide object that are used when forming URL. If option set set to `true`, slide objects must have `pid` (picture identifier) property that can be a string or an integer. For example:
@@ -250,7 +245,7 @@ var slides = [
 ];
 ```
 
-... second slide will have URL `http://example.com/#&gid=1&pid=image-two`.
+... second slide will have URL `http://example.com/#image-two`.
 
 Read more about how to implement custom PID in [the FAQ section](faq.html#custom-pid-in-url).
 
