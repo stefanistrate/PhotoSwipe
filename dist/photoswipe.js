@@ -1,4 +1,4 @@
-/*! PhotoSwipe - v4.1.2 - 2018-07-23
+/*! PhotoSwipe - v4.1.2 - 2018-07-27
 * http://photoswipe.com
 * Copyright (c) 2018 Dmitry Semenov; */
 (function (root, factory) { 
@@ -3503,7 +3503,7 @@ var _historyUpdateTimeout,
 			// detect custom pid in hash and search for it among the items collection
 			var searchfor = params.pid;
 			params.pid = 0; // if custom pid cannot be found, fallback to the first item
-			for(i = 0; i < _items.length; i++) {
+			for(var i = 0; i < _items.length; i++) {
 				if(_items[i].pid === searchfor) {
 					params.pid = i;
 					break;
