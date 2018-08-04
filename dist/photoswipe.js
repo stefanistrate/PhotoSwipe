@@ -1,4 +1,4 @@
-/*! PhotoSwipe - v4.1.2 - 2018-07-27
+/*! PhotoSwipe - v4.1.2 - 2018-08-04
 * http://photoswipe.com
 * Copyright (c) 2018 Dmitry Semenov; */
 (function (root, factory) { 
@@ -3502,7 +3502,7 @@ var _historyUpdateTimeout,
 		if(_options.galleryPIDs) {
 			// detect custom pid in hash and search for it among the items collection
 			var searchfor = params.pid;
-			params.pid = 0; // if custom pid cannot be found, fallback to the first item
+			params.pid = -1; // if custom pid cannot be found, return -1
 			for(var i = 0; i < _items.length; i++) {
 				if(_items[i].pid === searchfor) {
 					params.pid = i;
@@ -3510,10 +3510,10 @@ var _historyUpdateTimeout,
 				}
 			}
 		} else {
-			params.pid = parseInt(params.pid,10)-1;
-		}
-		if( params.pid < 0 ) {
-			params.pid = 0;
+			params.pid = parseInt(params.pid, 10) - 1;
+			if (params.pid < 0 || params.pid >= _items.length) {
+				params.pid = -1;
+			}
 		}
 		return params;
 	},
@@ -3649,7 +3649,11 @@ _registerModule('History', {
 				}
 			});
 			_listen('firstUpdate', function() {
+				// For safety, if an invalid item was requested on the first update, fallback to the first item.
 				_currentItemIndex = _parseItemIndexFromURL().pid;
+				if (_currentItemIndex === -1) {
+					_currentItemIndex = 0;
+				}
 			});
 
 
@@ -3673,9 +3677,16 @@ _registerModule('History', {
 			}
 			if(!_hashChangedByScript) {
 
-				_hashChangedByHistory = true;
-				self.goTo( _parseItemIndexFromURL().pid );
-				_hashChangedByHistory = false;
+				var pid = _parseItemIndexFromURL().pid;
+				if (pid === -1) {
+					_closedFromURL = true;
+					self.close();
+					return;
+				} else {
+					_hashChangedByHistory = true;
+					self.goTo(pid);
+					_hashChangedByHistory = false;
+				}
 			}
 			
 		},

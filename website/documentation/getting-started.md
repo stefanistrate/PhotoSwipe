@@ -434,10 +434,16 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
 	    		}
 		    } else {
 		    	// in URL indexes start from 1
-		    	options.index = parseInt(index, 10) - 1;
+		    	let idx = parseInt(index, 10) - 1;
+		    	if (idx >= 0 && idx < items.length) {
+		    		options.index = idx;
+		    	}
 		    }
 	    } else {
-	    	options.index = parseInt(index, 10);
+	    	let idx = parseInt(index, 10);
+	    	if (idx >= 0 && idx < items.length) {
+	    		options.index = idx;
+	    	}
 	    }
 
 	    // exit if index not found
