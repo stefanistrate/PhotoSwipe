@@ -365,11 +365,13 @@ indexIndicatorSep: ' / ',
 
 {% raw %}
 // Share buttons
-// 
+//
 // Available variables for URL:
-// {{url}}             - url to current page
+// {{url}}             - url to current page, encoded once
+// {{enc2x_url}}       - url to current page, encoded twice
 // {{text}}            - title
-// {{image_url}}       - encoded image url
+// {{image_url}}       - image url, encoded once
+// {{enc2x_image_url}} - image url, encoded twice
 // {{raw_image_url}}   - raw image url
 shareButtons: [
 	{id:'facebook', label:'Share on Facebook', url:'https://www.facebook.com/sharer/sharer.php?u={{url}}'},

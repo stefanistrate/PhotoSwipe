@@ -233,7 +233,9 @@ var PhotoSwipeUI_Default =
 				share_text = _options.getTextForShare(shareButtonData);
 
 				shareURL = shareButtonData.url.replace('{{url}}', encodeURIComponent(page_url) )
+									.replace('{{enc2x_url}}', encodeURIComponent(encodeURIComponent(page_url) ) )
 									.replace('{{image_url}}', encodeURIComponent(image_url) )
+									.replace('{{enc2x_image_url}}', encodeURIComponent(encodeURIComponent(image_url) ) )
 									.replace('{{raw_image_url}}', image_url )
 									.replace('{{text}}', encodeURIComponent(share_text) );
 
