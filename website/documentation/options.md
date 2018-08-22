@@ -369,7 +369,8 @@ indexIndicatorSep: ' / ',
 // Available variables for URL:
 // {{url}}             - url to current page, encoded once
 // {{enc2x_url}}       - url to current page, encoded twice
-// {{text}}            - title
+// {{text}}            - title, encoded once
+// {{enc2x_text}}      - title, encoded twice
 // {{image_url}}       - image url, encoded once
 // {{enc2x_image_url}} - image url, encoded twice
 // {{raw_image_url}}   - raw image url

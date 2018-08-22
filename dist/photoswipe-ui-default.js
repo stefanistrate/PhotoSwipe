@@ -240,7 +240,8 @@ var PhotoSwipeUI_Default =
 									.replace('{{image_url}}', encodeURIComponent(image_url) )
 									.replace('{{enc2x_image_url}}', encodeURIComponent(encodeURIComponent(image_url) ) )
 									.replace('{{raw_image_url}}', image_url )
-									.replace('{{text}}', encodeURIComponent(share_text) );
+									.replace('{{text}}', encodeURIComponent(share_text) )
+									.replace('{{enc2x_text}}', encodeURIComponent(encodeURIComponent(share_text) ) );
 
 				shareButtonOut += '<a href="' + shareURL + '" target="_blank" '+
 									'class="pswp__share--' + shareButtonData.id + '"' +
