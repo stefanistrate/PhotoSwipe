@@ -1,6 +1,6 @@
-/*! PhotoSwipe Default UI - 4.1.2 - 2018-08-22
+/*! PhotoSwipe Default UI - 4.1.3 - 2019-12-15
 * http://photoswipe.com
-* Copyright (c) 2018 Dmitry Semenov; */
+* Copyright (c) 2019 Dmitry Semenov; */
 /**
 *
 * UI on top of main sliding area (caption, arrows, close button, etc.).
