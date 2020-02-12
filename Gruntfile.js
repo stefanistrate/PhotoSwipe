@@ -41,10 +41,10 @@ module.exports = function(grunt) {
     clean: {
       files: ['dist']
     },
-
-    sass: {
-      dist: {
-        files: {
+    
+    sass: {                            
+      dist: {                      
+        files: {      
           'dist/photoswipe.css': 'src/css/main.scss',
           'dist/default-skin/default-skin.css': 'src/css/default-skin/default-skin.scss'
         }
