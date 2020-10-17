@@ -1,4 +1,4 @@
-/*! PhotoSwipe - v4.1.3 - 2020-02-12
+/*! PhotoSwipe - v4.1.3 - 2020-10-17
 * http://photoswipe.com
 * Copyright (c) 2020 Dmitry Semenov; */
 (function (root, factory) { 
@@ -3198,10 +3198,11 @@ var tapTimer,
 	_dispatchTapEvent = function(origEvent, releasePoint, pointerType) {		
 		var e = document.createEvent( 'CustomEvent' ),
 			eDetail = {
-				origEvent:origEvent, 
-				target:origEvent.target, 
-				releasePoint: releasePoint, 
-				pointerType:pointerType || 'touch'
+				origEvent: origEvent,
+				pointerType: pointerType || 'touch',
+				releasePoint: releasePoint,
+				target: origEvent.target,
+				rightClick: pointerType === 'mouse' && origEvent.which === 3
 			};
 
 		e.initCustomEvent( 'pswpTap', true, true, eDetail );
@@ -3264,6 +3265,7 @@ _registerModule('Tap', {
 		}
 	}
 });
+
 
 /*>>tap*/
 

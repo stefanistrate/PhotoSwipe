@@ -1,4 +1,4 @@
-/*! PhotoSwipe Default UI - 4.1.3 - 2020-02-12
+/*! PhotoSwipe Default UI - 4.1.3 - 2020-10-17
 * http://photoswipe.com
 * Copyright (c) 2020 Dmitry Semenov; */
 /**
@@ -730,22 +730,27 @@ var PhotoSwipeUI_Default =
 
 		if(e.detail && e.detail.pointerType === 'mouse') {
 
-			// close gallery if clicked outside of the image
-			if(_hasCloseClass(target)) {
-				pswp.close();
-				return;
+			// Silently ignore right-click events.
+			if (!e.detail.rightClick) {
+
+				// close gallery if clicked outside of the image
+				if(_hasCloseClass(target)) {
+					pswp.close();
+					return;
+				}
+
+				if(framework.hasClass(target, 'pswp__img')) {
+					if(pswp.getZoomLevel() === 1 && pswp.getZoomLevel() <= pswp.currItem.fitRatio) {
+						if(_options.clickToCloseNonZoomable) {
+							pswp.close();
+						}
+					} else {
+						pswp.toggleDesktopZoom(e.detail.releasePoint);
+					}
+				}
+
 			}
 
-			if(framework.hasClass(target, 'pswp__img')) {
-				if(pswp.getZoomLevel() === 1 && pswp.getZoomLevel() <= pswp.currItem.fitRatio) {
-					if(_options.clickToCloseNonZoomable) {
-						pswp.close();
-					}
-				} else {
-					pswp.toggleDesktopZoom(e.detail.releasePoint);
-				}
-			}
-			
 		} else {
 
 			// tap anywhere (except buttons) to toggle visibility of controls
